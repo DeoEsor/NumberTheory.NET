@@ -7,7 +7,7 @@
 			public static int Encrypt(int value, byte[] pBlock)
 			{
 				int result = 0;
-				//6
+				
 				for (int i = 0; i < pBlock.Length; i++)
 					result |= ((value >> (pBlock.Length - pBlock[i])) & 1) 
 						<< (pBlock.Length - i - 1);
@@ -18,8 +18,14 @@
 			
 			public static int Decrypt(int value, byte[] pBlock)
 			{
-				//TODO
-				return 0;
+				int result = 0;
+				
+				for (int i = 0; i < pBlock.Length; i++)
+					result |= ((value >> (pBlock.Length - i - 1)) & 1) 
+						<< (pBlock.Length - pBlock[i]);
+				
+
+				return result;
 			}
 		}
 		
