@@ -1,4 +1,5 @@
-﻿namespace CryptographyLib.FeistelNetwork
+﻿using CryptographyLib.Extensions;
+namespace CryptographyLib.FeistelNetwork
 {
 	/// <summary>
 	/// Implementation PBlock with crypt & encrypting
@@ -17,7 +18,8 @@
 			int result = 0;
 			
 			for (int i = 0; i < pBlock.Length; i++)
-				result |= ((value >> (pBlock.Length - pBlock[i])) & 1) 
+				result |= 
+					value.GetKBit(pBlock.Length - pBlock[i]) 
 					<< (pBlock.Length - i - 1);
 			
 			return result;
@@ -34,7 +36,8 @@
 			int result = 0;
 			
 			for (int i = 0; i < pBlock.Length; i++)
-				result |= ((value >> (pBlock.Length - i - 1)) & 1) 
+				result |= 
+					value.GetKBit(pBlock.Length - i - 1) 
 					<< (pBlock.Length - pBlock[i]);
 
 			return result;

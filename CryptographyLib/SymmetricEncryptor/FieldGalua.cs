@@ -5,12 +5,12 @@ namespace CryptographyLib
     /// <summary>
     ///     GF ( 2^8 ), where 2 - field characteristics, 8 - field order
     /// </summary>
-	public class FieldGalua : IDisposable
+	public sealed class FieldGalua : IDisposable
     {
         /// <summary>
         /// vector of irreducible polynoms
         /// </summary>
-        List<ushort> ir_poly;
+        List<ushort> _irPoly = new List<ushort>();
         
         private readonly uint field_charac = 0b10;
         private readonly uint field_order = 0b1000;
@@ -32,8 +32,8 @@ namespace CryptographyLib
         /// </summary>
         public List<ushort> IrrationalPoly
         {
-            get => ir_poly;
-            set => ir_poly = value;
+            get => _irPoly;
+            set => _irPoly = value;
         }
 
         /// <summary>
@@ -130,15 +130,15 @@ namespace CryptographyLib
             for (ushort number = 0b100000000; number <= 0b111111111; number +=2) 
             {
                 if (i == 30) return;
-                int null_remannts = 0;
+                int nullRemannts = 0;
 
                 for (byte j = 0b10; j < 0b100000; j++)
                     if (~remnant(number, j) == 1) 
                         break;
                     else 
-                        null_remannts++;
+                        nullRemannts++;
 
-                if (null_remannts != 0)
+                if (nullRemannts != 0)
                 {
                     IrrationalPoly.Add(number);
                     i++;

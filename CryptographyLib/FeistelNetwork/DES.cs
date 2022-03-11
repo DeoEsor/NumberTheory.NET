@@ -2,10 +2,7 @@
 using CryptographyLib.Interfaces;
 namespace CryptographyLib.FeistelNetwork
 {
-	/// <summary>
-	/// 
-	/// </summary>
-	public class FeistelNetwork : ISymmetricEncryptor
+	public class DES : ISymmetricEncryptor
 	{
 		private byte[]? _key;
 
@@ -14,18 +11,15 @@ namespace CryptographyLib.FeistelNetwork
 			get => _key;
 			set => _key = value;
 		}
-
+		public async Task<byte[]> Decrypt(byte[] value, byte[] key)
+		{
+			throw new System.NotImplementedException();
+		}
 		public Task<byte[]>[] Expand(byte[] key)
 		{
 			throw new System.NotImplementedException();
 		}
-
 		public Task<byte[]> Encrypt(byte[] value, byte[] key)
-		{
-			throw new System.NotImplementedException();
-		}
-
-		public async Task<byte[]> Decrypt(byte[] value, byte[] key)
 		{
 			throw new System.NotImplementedException();
 		}

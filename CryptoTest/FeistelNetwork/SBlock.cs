@@ -1,25 +1,30 @@
+using System;
 using NUnit.Framework;
 namespace CryptoTest.FeistelNetwork
 {
 	public class SBlock
 	{
+
+		private Func<byte, byte> SBlockRule = b => (byte)((3 * b + 7) % 16);
+		
 		[Test]
-		public void PBlockEncrypting()
+		public void SBlockEncrypting()
 		{
 			Assert.AreEqual(
-				37,
-				CryptographyLib.FeistelNetwork.PBlock.Encrypt(50, new byte[]{5,3,6,1,4,2})
+				10,
+				CryptographyLib.FeistelNetwork.SBlock.Encrypt(1, SBlockRule, 8)
 				);
 		}
 		
 		[Test]
-		public void PBlockDecripting()
+		public void SBlockDecripting()
 		{
 			Assert.AreEqual(
-				50,
-				CryptographyLib.FeistelNetwork.PBlock.Decrypt(
-					CryptographyLib.FeistelNetwork.PBlock.Encrypt(50, new byte[]{5,3,6,1,4,2}),
-					new byte[]{5,3,6,1,4,2}
+				1,
+				CryptographyLib.FeistelNetwork.SBlock.Decrypt(
+					CryptographyLib.FeistelNetwork.SBlock.Encrypt(1, SBlockRule, 8),
+					SBlockRule,
+					8
 					)
 			);
 		}
