@@ -11,8 +11,8 @@ namespace CryptoTest.FeistelNetwork
 		public void SBlockEncrypting()
 		{
 			Assert.AreEqual(
-				10,
-				CryptographyLib.FeistelNetwork.SBlock.Encrypt(1, SBlockRule, 8)
+				11,
+				CryptographyLib.FeistelNetwork.SBlock.Encrypt(12, SBlockRule, 255)
 				);
 		}
 		
@@ -22,9 +22,9 @@ namespace CryptoTest.FeistelNetwork
 			Assert.AreEqual(
 				1,
 				CryptographyLib.FeistelNetwork.SBlock.Decrypt(
-					CryptographyLib.FeistelNetwork.SBlock.Encrypt(1, SBlockRule, 8),
+					CryptographyLib.FeistelNetwork.SBlock.Encrypt(1, SBlockRule, 255),
 					SBlockRule,
-					8
+					255
 					)
 			);
 		}

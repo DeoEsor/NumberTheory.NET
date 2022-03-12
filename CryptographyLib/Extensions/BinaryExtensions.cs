@@ -22,6 +22,17 @@ namespace CryptographyLib.Extensions
 		/// </summary>
 		/// <param name="value">array of bytes</param>
 		/// <returns>collection of bits</returns>
+		public static IEnumerable<byte[]> GetByteBlocks(this byte[] value)
+		{
+			//TODO
+			yield break;
+		}
+		
+		/// <summary>
+		/// Returns collection of bits in <paramref name="value"/>
+		/// </summary>
+		/// <param name="value">array of bytes</param>
+		/// <returns>collection of bits</returns>
 		public static IEnumerable<byte> GetBytes(this int value)
 		{
 			int z =value.CountOfBites() / 4;
@@ -55,6 +66,9 @@ namespace CryptographyLib.Extensions
 		/// <returns>Count of bites</returns>
 		public static int CountOfBites(this int _value) 
 			=> Math.ILogB(_value.MaxValuableBit()) + 1;
+		
+		public static int CountOfBites(this byte _value) 
+			=> Math.ILogB(((int)_value).MaxValuableBit()) + 1;
 		
 		/// <summary>
 		/// Returns max valuable bit in array of bytes

@@ -28,7 +28,7 @@ namespace CryptoTest.BinaryTests
 		[Test]
 		public void CountOfBitesTest()
 		{
-			Assert.AreEqual(7,65.CountOfBites());
+			Assert.AreEqual(7,((int)65).CountOfBites());
 		}
 		
 		[Test]
