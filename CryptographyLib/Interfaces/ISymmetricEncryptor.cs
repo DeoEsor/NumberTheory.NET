@@ -1,36 +1,28 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 namespace CryptographyLib.Interfaces
 {
 	/// <summary>
 	/// Interface of Symmetric Encryptor
 	/// </summary>
-	public interface ISymmetricEncryptor : IExpandKey, IEncryptor , IDecryptor
+	public interface ISymmetricEncryptor : IEncryptor, IDecryptor, INotifyPropertyChanged
 	{
 		/// <summary>
 		/// Storage Key
 		/// </summary>
-		byte[]? Key { get; set; }
+		byte[] Key { get; set; }
 		
-		Task<byte[]> IEncryptor.Encrypt(byte[] value, byte[] key)
-		{
-			throw new NotImplementedException();
-		}
-
 		/// <summary>
-		/// Decryption
+		/// Rule of getting round keys
 		/// </summary>
-		/// <param name="value">byte array</param>
-		/// <param name="key">Key</param>
-		/// <returns></returns>
-		Task<byte[]> IDecryptor.Decrypt(byte[] value, byte[] key)
-		{
-			throw new NotImplementedException();
-		}
+		IExpandKey ExpandKey { get; set; }
+		
+		/// <inheritdoc />
+		abstract byte[] IEncryptor.Encrypt(byte[] value, byte[] key);
 
-		Task<byte[]>[] IExpandKey.Expand(byte[] key)
-		{
-			throw new NotImplementedException();
-		}
+
+		/// <inheritdoc />
+		abstract byte[] IDecryptor.Decrypt(byte[] value, byte[] key);
 	}
 }

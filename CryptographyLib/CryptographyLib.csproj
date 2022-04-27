@@ -4,6 +4,25 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <DocumentationMarkdown>$(MSBuildProjectDirectory)\API.md</DocumentationMarkdown>
+        <LangVersion>preview</LangVersion>
     </PropertyGroup>
+
+    <!--
+    <ItemGroup>
+      <PackageReference Include="Vsxmd" Version="1.4.5">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup> 
+    -->
+
+    <ItemGroup>
+      <ProjectReference Include="..\NumberTheory\NumberTheory.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Symmetric" />
+    </ItemGroup>
 
 </Project>

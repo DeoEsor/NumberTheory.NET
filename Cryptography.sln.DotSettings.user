@@ -1,13 +1,13 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=F3F9DC33_002D939F_002D4D08_002D98A6_002DE9C0270C2332_002Fd_003ASymmetricEncryptor_002Ff_003AFieldGalua_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4a7012bc_002D4788_002D45b8_002D9950_002Df3aa735d3986/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Solution /&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b5e8e822_002D185f_002D40f8_002D95c3_002Dee8dac4e5373/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SBlock" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4d4957d2_002Ded01_002D4f11_002D8f45_002D678d8d96cd46/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SBlock" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FB65CCB4-2755-4F28-8EF3-6FBBB6A699D8::net6.0::CryptoTest.FeistelNetwork.SBlock&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FB65CCB4-2755-4F28-8EF3-6FBBB6A699D8::net6.0::CryptoTest.NumberTheory.BinaryPow&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FB65CCB4-2755-4F28-8EF3-6FBBB6A699D8::net6.0::CryptoTest.NumberTheory.Xor&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
 	
 	
 	

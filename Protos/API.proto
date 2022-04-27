@@ -1,0 +1,43 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "CryptoServices";
+        
+package CryptoServices;
+
+service CryptoService {
+    rpc StartSession (StartSessionRequest) returns (StartSessionReply);
+    rpc EncryptFile (OpenMessage) returns (OpenMessage);
+}
+
+
+enum CodingMode {
+    ECB = 0;
+    CBC = 1;
+    CFB = 2;
+    OFB = 3;
+    CTR = 4;
+    RD = 5;
+    RD_H = 6;
+}
+
+message OpenMessage {
+    bytes mes = 1;
+    optional int64 iv = 2;
+    optional CodingMode mode = 3;
+}
+
+message StartSessionReply {
+    StatusCode status_code = 1;
+}
+
+message StartSessionRequest {
+    bytes key = 1;
+    optional int64 iv = 2;
+    optional CodingMode mode = 3;
+}
+
+enum StatusCode {
+    ACCEPTED = 0;
+    NOT_ACCEPTED = 1;
+    RiggedDetected = 3;
+}
