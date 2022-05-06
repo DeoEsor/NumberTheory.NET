@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Specialized;
 using CryptographyLib.Extensions;
 using CryptographyLib.Interfaces;
 namespace CryptographyLib.Symmetric.FeistelNetwork
@@ -7,46 +9,52 @@ namespace CryptographyLib.Symmetric.FeistelNetwork
 	/// Implementation PBlock with crypt & encrypting
 	/// https://www.youtube.com/watch?v=eAKi_f5Vqzo
 	/// </summary>
-	public class PBlock : IEncryptor, IDecryptor
+	public class PBlock
 	{
-		/// <summary>
-		/// Encryption of <paramref name="value"/> with <paramref name="value"/> as P-Box 
-		/// </summary>
-		/// <param name="value">value to encrypt</param>
-		/// <param name="pBlock">P-Box</param>
-		/// <returns>encrypted value</returns>
-		public static byte[] Encrypt(int value, byte[] pBlock)
+		/// <inheritdoc cref="Encrypt(int,byte[])"/>
+		public byte[] Encrypt(byte[] value, byte[] pBlock)
 		{
-			var result = 0;
+			var bitValue = new BitArray(value);
+			var result = new BitArray(value);
+			result.SetAll(false);
 			
-			for (var i = 0; i < 16; i++)
-				result |= 
-					value.GetKBit(pBlock.Length - pBlock[i]) 
-					<< (pBlock.Length - i - 1);
+			for (var i = 0; i < pBlock.Length; i++)
+				result.Set(i,pBlock[i] < 32 && bitValue.Get(pBlock[i] - 1));;
+
+			var byteResult = new byte[(result.Length - 1) / 8 + 1];
+			result.CopyTo(byteResult, 0);
+			return byteResult;
+		}
+		
+		/// <inheritdoc cref="Decrypt(int,byte[])"/>
+		public byte[] Decrypt(byte[] value, byte[] pBlock)
+		{
+			var bitValue = new BitArray(value);
+			var result = new BitArray(value);
+			result.SetAll(false);
 			
-			return BitConverter.GetBytes(result);
+			for (var i = 0; i < pBlock.Length; i++)
+				result.Set(pBlock[i] - 1,bitValue[i]);;
+
+			var byteResult = new byte[(result.Length - 1) / 8 + 1];
+			result.CopyTo(byteResult, 0);
+			return byteResult;
 		}
 		
 		/// <summary>
 		/// Decryption of <paramref name="value"/> with <paramref name="value"/> as P-Box 
 		/// </summary>
-		/// <param name="value">encrypted value</param>
+		/// <param name="value">Encrypted value</param>
 		/// <param name="pBlock">P-Box</param>
-		/// <returns>primal value</returns>
-		public static byte[] Decrypt(int value, byte[] pBlock)
-		{
-			var result = 0;
-			
-			for (var i = 0; i < 16; i++)
-				result |= 
-					value.GetKBit(pBlock.Length - i - 1) 
-					<< (pBlock.Length - pBlock[i]);
-
-			return BitConverter.GetBytes(result);
-		}
-		public byte[] Encrypt(byte[] value, byte[] originalKey)
-			=> Encrypt(BitConverter.ToInt16(value), originalKey);
-		public byte[] Decrypt(byte[] value, byte[] originalKey)
-			=> Decrypt(BitConverter.ToInt16(value), originalKey);
+		/// <returns>Primal value</returns>
+		public byte[] Decrypt(int value, byte[] pBlock) => Decrypt(BitConverter.GetBytes(value), pBlock);
+		
+		/// <summary>
+		/// Encryption of <paramref name="value"/> with <paramref name="value"/> as P-Box 
+		/// </summary>
+		/// <param name="value">Value to encrypt</param>
+		/// <param name="pBlock">P-Box</param>
+		/// <returns>Encrypted value</returns>
+		public byte[] Encrypt(int value, byte[] pBlock) => Encrypt(BitConverter.GetBytes(value), pBlock);
 	}
 }
