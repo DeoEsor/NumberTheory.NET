@@ -15,17 +15,19 @@ public class Solovay_StrassenTest : IPrimalChecker
             return false;
  
         var random = new Random();
-        
-        for (int i = 0; i < IPrimalChecker.GetDegree(minProbability); i++)
+        bool isPrime = true;
+        Parallel.For(0, IPrimalChecker.GetDegree(minProbability), (i, parallelState) =>
         {
-            
-            var a = random.Next() % (value - 1) + 1;
+            var a = random.NextInt64() % (value - 1) + 1;
             var jacobian = (value + Jacobi.J(a, value)) % value;
             var mod = ArithmeticExtensions.PowMod(a, (value - 1) / 2, value);
- 
+
             if (jacobian == 0 || mod != jacobian)
-                return false;
-        }
-        return true;
+            {
+                isPrime = false;
+                parallelState.Break();
+            }
+        });
+        return isPrime;
     }
 }

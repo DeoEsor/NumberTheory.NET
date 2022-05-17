@@ -23,18 +23,20 @@ public class FermatTest : IPrimalChecker
         if (value <= 3)
             return true;
         var random = new Random();
+        var isPrime = true;
 
-        for (int i = 0; i < IPrimalChecker.GetDegree(minProbability); i++) // attempts - кол-во попыток, так как тест - вероятностный 
+        Parallel.For(0, IPrimalChecker.GetDegree(minProbability), (i, parallelState) =>
         {
             BigInteger a = random.Next() % (value - 2) + 2;
 		
-            if (BigInteger.GreatestCommonDivisor(a, value) != 1) // если числа не взаимно просты, то понятно, что p не простое 
-                return false;
-		
-            if (ArithmeticExtensions.PowMod(a, value-1,value) != 1) // a^(p-1) = 1 (mod p)
-                return false;
-        }
+            if (BigInteger.GreatestCommonDivisor(a, value) != 1 // если числа не взаимно просты, то понятно, что p не простое
+                || ArithmeticExtensions.PowMod(a, value-1,value) != 1)  // a^(p-1) = 1 (mod p)
+            {
+                isPrime = false;
+                parallelState.Break();
+            }
+        });
 
-        return true;
+        return isPrime;
     }
 }
