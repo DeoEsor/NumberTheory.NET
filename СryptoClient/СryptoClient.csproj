@@ -18,8 +18,42 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include="../Protos/API.proto">
-            <GrpcServices>Client</GrpcServices>
+        <Protobuf Include="../Protos/API.proto" GrpcServices="Client" ProtoRoot="../Protos/" />
+        <Protobuf Include="../Protos/Messages/*.proto" GrpcServices="Both" ProtoRoot="../Protos/" />
+        <Protobuf Update="..\Protos\Messages\CodingMode.proto">
+          <GrpcServices>Both</GrpcServices>
+          <Access>Public</Access>
+          <ProtoCompile>True</ProtoCompile>
+          <CompileOutputs>True</CompileOutputs>
+          <OutputDir>obj\Debug\net6.0\</OutputDir>
+          <Generator>MSBuild:Compile</Generator>
+          <Link>Protos\Messages\CodingMode.proto</Link>
+        </Protobuf>
+        <Protobuf Update="..\Protos\Messages\StatusCode.proto">
+          <GrpcServices>Both</GrpcServices>
+          <Access>Public</Access>
+          <ProtoCompile>True</ProtoCompile>
+          <CompileOutputs>True</CompileOutputs>
+          <OutputDir>obj\Debug\net6.0\</OutputDir>
+          <Generator>MSBuild:Compile</Generator>
+          <Link>Protos\Messages\StatusCode.proto</Link>
+        </Protobuf>
+        <Protobuf Update="..\Protos\Messages\StartSessionMessages.proto">
+          <GrpcServices>Both</GrpcServices>
+          <Access>Public</Access>
+          <ProtoCompile>True</ProtoCompile>
+          <CompileOutputs>True</CompileOutputs>
+          <OutputDir>obj\Debug\net6.0\</OutputDir>
+          <Generator>MSBuild:Compile</Generator>
+          <Link>Protos\Messages\StartSessionMessages.proto</Link>
+        </Protobuf>
+        <Protobuf Update="..\Protos\Messages\UserGettingMessages.proto">
+          <Access>Public</Access>
+          <ProtoCompile>True</ProtoCompile>
+          <CompileOutputs>True</CompileOutputs>
+          <OutputDir>obj\Debug\net6.0\</OutputDir>
+          <Generator>MSBuild:Compile</Generator>
+          <Link>Protos\Messages\UserGettingMessages.proto</Link>
         </Protobuf>
     </ItemGroup>
 </Project>
