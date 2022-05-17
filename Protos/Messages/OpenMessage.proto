@@ -1,0 +1,14 @@
+﻿syntax = "proto3";
+
+import "Messages/CodingMode.proto";
+
+option csharp_namespace = "CryptoServices";
+
+
+package CryptoServices;
+
+message OpenMessage {
+  uint64 receiverId = 1;
+  bytes mes = 2;
+  optional CodingMode mode = 3;
+}

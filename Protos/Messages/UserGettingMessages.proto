@@ -1,0 +1,22 @@
+﻿syntax = "proto3";
+
+import "Messages/CodingMode.proto";
+
+option csharp_namespace = "CryptoServices";
+
+
+package CryptoServices;
+
+message User {
+  uint64 Id = 1;
+  string Name = 2;
+  string Color = 3;
+}
+
+message UserGettingRequest {
+  
+}
+
+message UserGettingReply {
+  repeated User Users = 1;
+}
