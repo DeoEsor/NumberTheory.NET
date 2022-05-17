@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CryptographyLib.Interfaces;
+﻿
+
 // ReSharper disable MemberCanBePrivate.Global
 namespace CryptographyLib.KeyExpanders
 {
@@ -9,7 +7,11 @@ namespace CryptographyLib.KeyExpanders
 	{
 		public readonly int BlockLength;
 
-		public override int RoundsCount => OriginalKey.Length / BlockLength;
+		public override int RoundsCount
+		{
+			get => OriginalKey.Length / BlockLength;
+			protected set { ; }
+		}
 
 		public  static SimpleExpander CreateInstance(byte[] originalKey,int blockLength)
 		{
@@ -21,16 +23,18 @@ namespace CryptographyLib.KeyExpanders
 		{
 			BlockLength = blockLength;
 		}
-		protected override IEnumerator<byte[]> GetExpander()
+		public override IEnumerator<byte[]> GetExpander()
 		{
 			for (var i = 0; i < OriginalKey.Length / BlockLength; i++)
 			{
-				yield return 
-					OriginalKey
-							.Skip(i * BlockLength)
-							.Take(BlockLength) 
-						as byte[] 
-					?? throw new InvalidOperationException();//TODO
+				if (OriginalKey
+					    .Skip(i * BlockLength)
+					    .Take(BlockLength) 
+				    is not byte[] current) 
+					yield break;
+				if (current.Length < BlockLength)
+					Padding?.ApplyPadding(current, BlockLength);
+				yield return current;
 			}
 		}
 	}

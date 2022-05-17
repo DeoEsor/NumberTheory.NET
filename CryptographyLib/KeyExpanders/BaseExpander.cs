@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using CryptographyLib.Interfaces;
 using CryptographyLib.Paddings;
 // ReSharper disable MemberCanBePrivate.Global
 namespace CryptographyLib.KeyExpanders
@@ -9,19 +7,8 @@ namespace CryptographyLib.KeyExpanders
 	{
 		private byte[] _originalKey;
 		protected IPadding Padding; 
-
-		protected BaseExpander(byte[] originalKey, IPadding padding = null!)
-		{
-			_originalKey = originalKey;
-			Padding = padding;
-		}
-
-		IEnumerator<byte[]> IEnumerable<byte[]>.GetEnumerator()
-			=> GetExpander();
-
-		public IEnumerator GetEnumerator() => GetExpander();
 		
-		protected abstract IEnumerator<byte[]> GetExpander();
+		
 		public byte[] OriginalKey
 		{
 			get => _originalKey;
@@ -30,6 +17,20 @@ namespace CryptographyLib.KeyExpanders
 		public abstract int RoundsCount
 		{
 			get;
+			protected set;
 		}
+
+		protected BaseExpander(byte[] originalKey, IPadding padding = null!)
+		{
+			_originalKey = originalKey;
+			Padding = padding ?? new PKCS7();
+		}
+
+		IEnumerator<byte[]> IEnumerable<byte[]>.GetEnumerator()
+			=> GetExpander();
+
+		public IEnumerator GetEnumerator() => GetExpander();
+		
+		public abstract IEnumerator<byte[]> GetExpander();
 	}
 }

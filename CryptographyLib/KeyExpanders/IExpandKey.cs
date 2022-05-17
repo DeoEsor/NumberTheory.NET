@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CryptographyLib.Extensions;
-using CryptographyLib.Paddings;
-namespace CryptographyLib.Interfaces
+﻿namespace CryptographyLib.KeyExpanders
 {
 	/// <summary>
 	/// Interface for Strategy Pattern for key expander
