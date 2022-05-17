@@ -1,37 +1,36 @@
 ﻿using System;
+using System.Numerics;
 using NumberTheory.Euclid;
-namespace NumberTheory.Symbols
+namespace NumberTheory.Symbols;
+
+public static class Jacobi
 {
-	public static class Jacobi
+	public static BigInteger J(BigInteger a, BigInteger b)
 	{
-		
-		public static int J(int a, int b)
+		var r = 1;
+		while (a != 0)
 		{
-			if (b <= 1 || b % 2 == 0 || GCD.Solve(a, b) != 1) return 0;
-			var r = 1;
+			int t = 0;
+			while ((a & 1) == 0)
+			{
+				t++;
+				a >>= 1;
+			}
 			
-			if (a >= 0)
-				return Solution(a, b, r);
+			if ((t & 1) !=0)
+			{
+				var temp = b % 8;
+				if (temp == 3 || temp == 5)
+					r = -r;
+			}
 			
-			a = -a;
-			if (b % 4 == 3)
+			BigInteger a4 = a % 4, b4 = b % 4;
+			if (a4 == 3 && b4 == 3)
 				r = -r;
-
-			return Solution(a, b, r);
+			var c = a;
+			a = b % c;
+			b = c;
 		}
-
-		private static int Solution(int a ,int b, int r)
-		{
-			var i = 0;
-			for (; a % 2 == 0b0; i++)
-				a /= 2;
-
-			if (i % 2 == 0 && (b % 8 == 3 || b % 8 == 5))
-				r = -r;
-
-			if (a % 4 == 3 && b % 4 == 3)
-				r = -r;
-			return a != 0 ? Solution(a,b,r) : r;
-		}
+		return r;
 	}
 }

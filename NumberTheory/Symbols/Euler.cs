@@ -1,9 +1,11 @@
-﻿namespace NumberTheory.Symbols
+﻿using System.Numerics;
+
+namespace NumberTheory.Symbols
 {
 	public static class Euler
 	{
 		/// <inheritdoc cref="Phi"/>
-		public static int EulerFunc(int n) => Phi(n);
+		public static BigInteger EulerFunc(BigInteger n) => Phi(n);
 		
 		/// <summary>
 		/// Euler function
@@ -14,7 +16,7 @@
 		/// relatively prime or mutually prime
 		/// </returns>
 		/// <remarks>Complexity O(sqrt(<paramref name="n"/>))</remarks>
-		private static int Phi(int n) 
+		private static BigInteger Phi(BigInteger n) 
 		{
 			var result = n;
 			
