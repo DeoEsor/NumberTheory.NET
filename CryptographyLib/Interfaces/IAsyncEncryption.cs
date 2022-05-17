@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-namespace CryptographyLib.Interfaces
+﻿namespace CryptographyLib.Interfaces
 {
 	public interface IAsyncEncryptor
 	{
@@ -9,6 +8,6 @@ namespace CryptographyLib.Interfaces
 		/// <param name="value">Open text</param>
 		/// <param name="originalKey">key</param>
 		/// <returns>Closed text</returns>
-		Task<byte[]> AsyncEncrypt(byte[] value, byte[] originalKey);
+		Task<byte[]> AsyncEncrypt(Stream value, byte[] originalKey);
 	}
 }

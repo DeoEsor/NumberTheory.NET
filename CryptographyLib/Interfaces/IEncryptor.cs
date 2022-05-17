@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-namespace CryptographyLib.Interfaces
+﻿namespace CryptographyLib.Interfaces
 {
 	/// <summary>
 	/// Interface for encryption
@@ -10,9 +9,8 @@ namespace CryptographyLib.Interfaces
 		/// Encryption
 		/// </summary>
 		/// <param name="value">Open text</param>
-		/// <param name="originalKey">key</param>
 		/// <returns>Closed text</returns>
-		byte[] Encrypt(byte[] value, byte[] originalKey);
+		byte[] Encrypt(byte[] value);
 	}
 
 }
