@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using CryptographyLib.Extensions;
 using CryptographyLib.Interfaces;
+using CryptographyLib.KeyExpanders;
 using CryptographyLib.Paddings;
 namespace CryptographyLib.Symmetric.FeistelNetwork
 {
@@ -11,7 +11,7 @@ namespace CryptographyLib.Symmetric.FeistelNetwork
 	/// </summary>
 	public class FeistelNetwork : SymmetricEncryptorBase
 	{
-		private ISymmetricEncryptor Encryptor;
+		private readonly ISymmetricEncryptor _encryptor;
 		public int Rounds
 		{
 			get;
@@ -19,50 +19,46 @@ namespace CryptographyLib.Symmetric.FeistelNetwork
 		}
 		private IPadding Padding = new PKCS7();
 
-		public FeistelNetwork(  [NotNull] IExpandKey expandKey,
-								ISymmetricEncryptor symmetricEncryptor,
-								[NotNull] byte[] key)
-			: base(expandKey, key)
+		public FeistelNetwork(  IExpandKey expandKey,
+								ISymmetricEncryptor symmetricEncryptor)
+			: base(expandKey)
 		{
-			Encryptor = symmetricEncryptor;
+			_encryptor = symmetricEncryptor;
 			Rounds = ExpandKey.RoundsCount;
 		}
-		
-		
-		public override byte[] Encrypt(byte[] value, byte[] originalKey)
+
+		public override byte[] Encrypt(byte[] value)
 		{
 			value = Padding.ApplyPadding(value, 4);
-			byte[] L = value.Take(value.Length / 2).ToArray(), 
-				   R = value.TakeLast(value.Length / 2).ToArray();
-			var roundKeys = ExpandKey.ToList();
-			
+			BitArray l = new BitArray(Enumerable.Take(value, value.Length / 2).ToArray()), 
+				   r = new BitArray(Enumerable.TakeLast(value, value.Length / 2).ToArray());
+
 			for (var i = 0; i < Rounds - 1; i++)
 			{
-				R = R.XorBytes(Encryptor.Encrypt(L, originalKey));
-				(L, R) = (R, L);
+				r = r.Xor(new BitArray(_encryptor.Encrypt(l.ToBytes())));
+				(l, r) = (r, l);
 			}
-			R = R.XorBytes(Encryptor.Encrypt(L,roundKeys[Rounds - 1]));
-			var res = L.ToList();
-			res.AddRange(R); 
+			r = r.Xor(new BitArray(_encryptor.Encrypt(l.ToBytes())));
+			byte[] res = new byte[r.Length / 8 + 1];
+			r.CopyTo(res,0);
 			return res.ToArray();
 		}
-		
-		public override byte[] Decrypt(byte[] value, byte[] originalKey)
+
+		public override byte[] Decrypt(byte[] value)
 		{
 			value = Padding.ApplyPadding(value, 4);
-			byte[]  L = value.Take(value.Length / 2).ToArray(), 
-					R = value.TakeLast(value.Length / 2).ToArray();
-			var roundKeys = ExpandKey.ToList();
-			
+			byte[]  l = Enumerable.Take(value, value.Length / 2).ToArray(), 
+					r = Enumerable.TakeLast(value, value.Length / 2).ToArray();
+
 			for (var i = Rounds - 1; i > 0; i++)
 			{
-				R = R.XorBytes(Encryptor.Decrypt(L,roundKeys[i]));
-				(L, R) = (R, L);
+				r = r.XorBytes(_encryptor.Decrypt(l));
+				(l, r) = (r, l);
 			}
 			
-			R = R.XorBytes(Encryptor.Decrypt(L,roundKeys[0]));
-			var res = L.ToList();
-			res.AddRange(R); 
+			r = r.XorBytes(_encryptor.Decrypt(l));
+			var res = l.ToList();
+			res.AddRange(r); 
 			return res.ToArray();
 		}
 	}

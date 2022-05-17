@@ -1,51 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.ComTypes;
-using CryptographyLib.Interfaces;
-using CryptographyLib.KeyExpanders;
+﻿using CryptographyLib.KeyExpanders;
 using CryptographyLib.Symmetric.FeistelNetwork;
 namespace CryptographyLib.Symmetric.SPNetwork
 {
 	public class SPNetwork : SymmetricEncryptorBase
 	{
-		public SPNetwork(IExpandKey expandKey, byte[] key) 
-			: base(expandKey, key) {}
 
-		public override byte[] Encrypt(byte[] value, byte[] originalKey)
+		private SBlock SBlock = new SBlock();
+		private PBlock PBlock = new PBlock();
+		public SPNetwork(IExpandKey expandKey) 
+			: base(expandKey) {}
+
+		public override byte[] Encrypt(byte[] value)
 		{
-			ExpandKey.OriginalKey = originalKey;
 			foreach (var roundKey in ExpandKey)
-				value = EncryptRound(value, roundKey);
+				value = EncryptRound(value);
 			return value;
 		}
-		public override byte[] Decrypt(byte[] value, byte[] originalKey)
+
+		public override byte[] Decrypt(byte[] value)
 		{
-			ExpandKey.OriginalKey = originalKey;
 			foreach (var roundKey in ExpandKey)
-				value = DecryptRound(value, roundKey);
+				value = DecryptRound(value);
 			return value;
 		}
-		
-		protected override byte[] DecryptRound(byte[] value, byte[] roundKey)
+
+		protected override byte[] DecryptRound(byte[] value)
 		{
 			var expandValue = new SimpleExpander(value, 4);
-			List<byte> sblockRes = new List<byte>();
-			
-			foreach (byte[] partValue in expandValue)
-				sblockRes.AddRange( SBlock.Encrypt(partValue, roundKey));
+			using var roundKeys = ExpandKey.GetEnumerator();
+			var sblockRes = new List<byte>();
 
-			var a = PBlock.Decrypt(BitConverter.ToInt32(sblockRes.ToArray()), roundKey);
+			foreach (byte[] partValue in expandValue)
+			{
+				sblockRes.AddRange( SBlock.Encrypt(partValue, roundKeys.Current));
+				if (!roundKeys.MoveNext())
+					break;
+			}
+
+			byte[] a = null!;
+			
+			if (roundKeys.Current != null)
+				a = PBlock.Decrypt(BitConverter.ToInt32(sblockRes.ToArray()), roundKeys.Current);
+			
 			return a;
 		}
-		protected override byte[] EncryptRound(byte[] value, byte[] roundKey)
+		protected override byte[] EncryptRound(byte[] value)
 		{
 			var expandValue =new SimpleExpander(value, 4);
-			List<byte> sblockRes = new List<byte>();
+			var sblockRes = new List<byte>();
 			
-			foreach (byte[] partValue in expandValue)
-				sblockRes.AddRange( SBlock.Encrypt(partValue, roundKey));
+			using var roundKeys = ExpandKey.GetEnumerator();
 
-			var a = PBlock.Encrypt(BitConverter.ToInt32(sblockRes.ToArray()), roundKey);
+			foreach (byte[] partValue in expandValue)
+			{
+				sblockRes.AddRange( SBlock.Encrypt(partValue, roundKeys.Current));
+				if (!roundKeys.MoveNext())
+					break;
+			}
+
+			byte[] a = null!;
+			
+			if (roundKeys.Current != null)
+				a = PBlock.Decrypt(sblockRes.ToArray(), roundKeys.Current);
+			
 			return a;
 		}
 		

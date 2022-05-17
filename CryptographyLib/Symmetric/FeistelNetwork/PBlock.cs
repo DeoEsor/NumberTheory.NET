@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Specialized;
-using CryptographyLib.Extensions;
-using CryptographyLib.Interfaces;
+﻿using System.Collections;
+
 namespace CryptographyLib.Symmetric.FeistelNetwork
 {
 	/// <summary>

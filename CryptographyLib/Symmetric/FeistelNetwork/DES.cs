@@ -1,30 +1,31 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections;
 using CryptographyLib.Interfaces;
+using CryptographyLib.KeyExpanders;
+
 namespace CryptographyLib.Symmetric.FeistelNetwork
 {
-	public class DES : SymmetricEncryptorBase
+	public class DES : ISymmetricEncryptor
 	{
+		public IExpandKey ExpandKey { get; }
 
-		public DES([NotNull] IExpandKey expandKey, [NotNull] byte[] key)
-			: base(expandKey, key)
+		public byte[] Encrypt(byte[] value)
 		{
+			throw new NotImplementedException();
 		}
-		public override byte[] Decrypt(byte[] value, byte[] originalKey)
+
+		public BitArray Encrypt(BitArray value)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
-		public override byte[] Encrypt(byte[] value, byte[] originalKey)
+
+		public byte[] Decrypt(byte[] value)
 		{
-			throw new System.NotImplementedException();
+			throw new NotImplementedException();
 		}
-		
-		protected override byte[] DecryptRound(byte[] value, byte[] roundKey)
+
+		public BitArray Decrypt(BitArray value)
 		{
-			return base.DecryptRound(value, roundKey);
-		}
-		protected override byte[] EncryptRound(byte[] value, byte[] roundKey)
-		{
-			return base.EncryptRound(value, roundKey);
+			throw new NotImplementedException();
 		}
 	}
 }
