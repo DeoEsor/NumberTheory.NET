@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using CryptographyLib.Extensions;
+﻿using CryptographyLib.Extensions;
 using CryptographyLib.Interfaces;
 using CryptographyLib.KeyExpanders;
 namespace CryptographyLib.CipherModes.Realization
@@ -16,7 +14,14 @@ namespace CryptographyLib.CipherModes.Realization
 			_iv = iv;
 			_blocksCount = blocksCount;
 		}
-		public override byte[] Encrypt(byte[] value, byte[] originalKey)
+		public CBC(ISymmetricEncryptor symmetricEncryptor, int iv, int blocksCount) 
+			: base(symmetricEncryptor, symmetricEncryptor)
+		{
+			_iv = iv;
+			_blocksCount = blocksCount;
+		}
+		
+		public override byte[] Encrypt(byte[] value)
 		{
 			var expander = 
 				new SimpleExpander(value, value.Length / 4)
@@ -26,15 +31,16 @@ namespace CryptographyLib.CipherModes.Realization
 
 			foreach (var block in expander)
 			{
-				byte[]? resultBlock = null;
+				byte[] resultBlock = null!;
 				var xor = resultBlock == null ? _iv.XorBytes(block) : resultBlock.XorBytes(block);
-				resultBlock = _encryptor.Encrypt(xor, originalKey);
+				resultBlock = _encryptor.Encrypt(xor);
 				result.Add(resultBlock);
 			}
 
 			return result.SelectMany(s => s).ToArray();
 		}
-		public override byte[] Decrypt(byte[] value, byte[] originalKey)
+
+		public override byte[] Decrypt(byte[] value)
 		{
 			var expander = 
 				new SimpleExpander(value, value.Length / 4)
@@ -46,7 +52,7 @@ namespace CryptographyLib.CipherModes.Realization
 			{
 				byte[]? resultBlock = null;
 				var xor = resultBlock == null ? _iv.XorBytes(block) : resultBlock.XorBytes(block);
-				resultBlock = _decryptor.Decrypt(xor, originalKey);
+				resultBlock = _decryptor.Decrypt(xor);
 				result.Add(resultBlock);
 			}
 

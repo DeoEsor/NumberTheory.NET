@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using CryptographyLib.Interfaces;
+﻿using CryptographyLib.Interfaces;
 namespace CryptographyLib.CipherModes
 {
 	public abstract class CipherModeBase : IEncryptor, IDecryptor
@@ -12,7 +11,14 @@ namespace CryptographyLib.CipherModes
 			_encryptor = encryptor;
 			_decryptor = decryptor;
 		}
-		public abstract byte[] Encrypt(byte[] value, byte[] originalKey);
-		public abstract byte[] Decrypt(byte[] value, byte[] originalKey);
+		
+		protected CipherModeBase(ISymmetricEncryptor symmetricEncryptor)
+		{
+			_encryptor = symmetricEncryptor;
+			_decryptor = symmetricEncryptor;
+		}
+		
+		public abstract byte[] Encrypt(byte[] value);
+		public abstract byte[] Decrypt(byte[] value);
 	}
 }
