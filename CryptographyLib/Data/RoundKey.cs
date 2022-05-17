@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace CryptographyLib
+﻿namespace CryptographyLib
 {
-	[Serializable]
-	public class RoundKey
+	[Serializable, Obsolete]
+	public sealed class RoundKey
 	{
 		private readonly Lazy<byte[]> _key;
 
