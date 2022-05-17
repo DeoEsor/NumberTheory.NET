@@ -13,9 +13,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include="../Protos/API.proto">
-            <GrpcServices>Server</GrpcServices>
-        </Protobuf>
+        <Protobuf Include="../Protos/API.proto" GrpcServices="Server" ProtoRoot="../Protos/" />
+        <Protobuf Include="../Protos/Messages/*.proto" GrpcServices="Both" ProtoRoot="../Protos/" />
     </ItemGroup>
 
 </Project>
