@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-namespace CryptographyLib.Extensions
+﻿namespace CryptographyLib.Extensions
 {
 	public static class FestielNetworkExtensions
 	{

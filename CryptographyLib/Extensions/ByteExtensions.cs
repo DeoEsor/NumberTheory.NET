@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic.CompilerServices;
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace CryptographyLib.Extensions
 {
 	public static class ByteExtensions
@@ -15,6 +12,10 @@ namespace CryptographyLib.Extensions
 		/// <returns>k's bit</returns>
 		public static byte GetKBit(this int value, int k)
 			=> (byte)((value >> k) & 1);
+		
+		/// <inheritdoc cref="GetKBit(int,int)"/>>
+		public static byte GetKBit(this byte[] value, int k)
+			=> (byte)((value[k / 8] >> k % 8) & 1);
 		
 		/// <summary>
 		/// Separates array of bytes into byte blocks
