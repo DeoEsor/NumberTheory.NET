@@ -5,9 +5,9 @@
 		/// <summary>
 		/// Padding byte array
 		/// </summary>
-		/// <param name="input"></param>
-		/// <param name="blockLength"></param>
-		/// <returns></returns>
-		byte[] ApplyPadding(byte[] input, byte blockLength);
+		/// <param name="input">Byte array that should be padded</param>
+		/// <param name="blockLength">Result byte array length</param>
+		/// <returns>Padded byte array</returns>
+		byte[] ApplyPadding(byte[] input, int blockLength);
 	}
 }

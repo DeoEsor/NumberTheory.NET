@@ -1,16 +1,15 @@
 ﻿// ReSharper disable InconsistentNaming
-using System;
-using NumberTheory.Extensions;
+
 using NumberTheory.Extensions.Arithmetic;
 namespace CryptographyLib.Paddings
 {
 	public class ISO_10126 : IPadding
 	{
-		public byte[] ApplyPadding(byte[] input, byte blockLength)
+		public byte[] ApplyPadding(byte[] input, int blockLength)
 		{
 			var random = new Random();
 			var reqPadding= ArithmeticExtensions.
-				unsigned_divide((uint)input.Length, blockLength)
+				unsigned_divide((uint)input.Length, (byte)blockLength)
 				.Item2;
 			if (reqPadding == 0)
 				return input;

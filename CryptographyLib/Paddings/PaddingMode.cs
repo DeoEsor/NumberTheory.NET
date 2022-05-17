@@ -1,5 +1,5 @@
 ﻿// ReSharper disable CheckNamespace
-using System;
+
 using CryptographyLib.Paddings;
 namespace CryptographyLib
 {

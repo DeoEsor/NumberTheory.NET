@@ -1,7 +1,4 @@
-﻿using CryptographyLib.Extensions;
-using NumberTheory;
-using NumberTheory.Extensions;
-using NumberTheory.Extensions.Arithmetic;
+﻿using NumberTheory.Extensions.Arithmetic;
 // ReSharper disable InconsistentNaming
 namespace CryptographyLib.Paddings
 {
@@ -17,10 +14,10 @@ namespace CryptographyLib.Paddings
 		/// <param name="input"></param>
 		/// <param name="blockLength"></param>
 		/// <returns></returns>
-		public byte[] ApplyPadding(byte[] input, byte blockLength)
+		public byte[] ApplyPadding(byte[] input, int blockLength)
 		{
 			var reqPadding= ArithmeticExtensions.
-				unsigned_divide((uint)input.Length, blockLength)
+				unsigned_divide((uint)input.Length, (byte)blockLength)
 				.Item2;
 			if (reqPadding == 0)
 				return input;

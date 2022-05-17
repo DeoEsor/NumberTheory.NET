@@ -1,13 +1,12 @@
-﻿using NumberTheory.Extensions;
-using NumberTheory.Extensions.Arithmetic;
+﻿using NumberTheory.Extensions.Arithmetic;
 namespace CryptographyLib.Paddings
 {
 	public class X923 : IPadding
 	{
-		public byte[] ApplyPadding(byte[] input, byte blockLength)
+		public byte[] ApplyPadding(byte[] input, int blockLength)
 		{
 			var reqPadding= ArithmeticExtensions.
-				unsigned_divide((uint)input.Length, blockLength)
+				unsigned_divide((uint)input.Length, (byte)blockLength)
 				.Item2;
 			if (reqPadding == 0)
 				return input;
