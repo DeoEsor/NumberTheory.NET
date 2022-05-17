@@ -50,4 +50,12 @@ public partial class NumberTheory
 
         Assert.AreEqual(true, solovay.Check(1000003,0.87f));
     }
+    
+    [Test]
+    public void MillerRabinTest()
+    {
+        var millerRabin = new MillerRabinTest();
+
+        Assert.AreEqual(true, millerRabin.Check(1000003,0.87f));
+    }
 }
