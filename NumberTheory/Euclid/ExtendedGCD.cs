@@ -1,8 +1,10 @@
-﻿namespace NumberTheory.Euclid
+﻿using System.Numerics;
+
+namespace NumberTheory.Euclid
 {
 	public static class ExtendedGCD
 	{
-		public static int Solve(int a, int b, out int x, out int y)
+		public static BigInteger Solve(BigInteger a, BigInteger b, out BigInteger x, out BigInteger y)
 		{
 			if (a == 0) 
 			{
