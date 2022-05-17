@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Numerics;
 using NumberTheory.Euclid;
 namespace NumberTheory.Extensions
 {
@@ -30,7 +31,7 @@ namespace NumberTheory.Extensions
 		/// <param name="module">Module</param>
 		/// <returns>Reverse value</returns>
 		/// <exception cref="ArithmeticException">No solution</exception>
-		public static bool TryGetReverseByModule(int a, int module, out int result)
+		public static bool TryGetReverseByModule(BigInteger a, BigInteger module, out BigInteger result)
 		{
 			result = Int32.MinValue;
 			var g = ExtendedGCD.Solve(a, module, out var x,out var y);
