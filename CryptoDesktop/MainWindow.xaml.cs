@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using СryptoClient;
@@ -11,12 +12,32 @@ namespace CryptoDesktop
     /// </summary>
     public partial class MainWindow : Window
 	{
-		private Connection Connection;
 		public MainWindow()
 		{
-			Connection = new Connection();
 			InitializeComponent();
-			TextBlock.Text = Connection.last_string;
+		}
+
+		private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+		{
+			if (e.LeftButton == MouseButtonState.Pressed)
+				DragMove();
+		}
+
+		private void Close_Click(object sender, RoutedEventArgs e)
+		{
+			Application.Current.Shutdown();
+		}
+
+		private void Maximaze_Click(object sender, RoutedEventArgs e)
+		{
+			Application.Current.MainWindow.WindowState = 
+				Application.Current.MainWindow.WindowState != WindowState.Maximized ?
+					WindowState.Maximized : WindowState.Normal;
+		}
+
+		private void Minimaze_Click(object sender, RoutedEventArgs e)
+		{
+			Application.Current.MainWindow.WindowState = WindowState.Minimized;
 		}
 	}
 }
