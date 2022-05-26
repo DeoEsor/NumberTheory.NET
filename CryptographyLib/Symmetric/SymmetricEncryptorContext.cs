@@ -11,7 +11,7 @@ namespace CryptographyLib.Symmetric
 
 		private CipherModeBase Mode;
 		
-		private SymmetricEncryptorContext(CipherMode.Mode mode, 
+		public SymmetricEncryptorContext(CipherMode.Mode mode, 
 											ushort seed, 
 											ISymmetricEncryptor symmetricEncryptor, params object[] parametrs)
 		{
