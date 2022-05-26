@@ -1,4 +1,5 @@
-﻿using NumberTheory.Extensions.Arithmetic;
+﻿using System;
+using NumberTheory.Extensions.Arithmetic;
 using NumberTheory.Interfaces;
 using NumberTheory.PrimalCheckers;
 using NUnit.Framework;

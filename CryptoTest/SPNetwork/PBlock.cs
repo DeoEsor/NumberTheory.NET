@@ -4,6 +4,7 @@ using NUnit.Framework;
 
 namespace CryptoTest.SPNetwork;
 
+[TestFixture]
 public class PBlockTest
 {
     private PBlock pBlock = new PBlock();
