@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using NumberTheory.Extensions.Arithmetic;
 using NumberTheory.Interfaces;
+using NUnit.Framework;
 
 namespace NumberTheory.PrimalCheckers;
 
@@ -26,8 +27,8 @@ public class FermatTest : IPrimalChecker
         var isPrime = true;
 
         Parallel.For(0, IPrimalChecker.GetDegree(minProbability), (i, parallelState) =>
-        {
-            BigInteger a = random.Next() % (value - 2) + 2;
+        { //TODO Concurrent collection to add generated random numbers
+            var a = TestContext.CurrentContext.Random.NextULong() % (value - 2) + 2; 
 		
             if (BigInteger.GreatestCommonDivisor(a, value) != 1 // если числа не взаимно просты, то понятно, что p не простое
                 || ArithmeticExtensions.PowMod(a, value-1,value) != 1)  // a^(p-1) = 1 (mod p)

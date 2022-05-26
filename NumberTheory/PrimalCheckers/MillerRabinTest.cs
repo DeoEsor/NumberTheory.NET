@@ -19,6 +19,10 @@ public class MillerRabinTest : IPrimalChecker
     }
     public bool Check(BigInteger value, float minProbability)
     {
+        if (minProbability is not (> 0.749f and < 1))
+            throw new ArgumentException(nameof(minProbability));
+        if (value <= 0)
+            throw new ArgumentException(nameof(value));
         var isPrime = true;
         var random = new Random();
         
