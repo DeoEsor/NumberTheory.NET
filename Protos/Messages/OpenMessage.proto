@@ -8,7 +8,12 @@ option csharp_namespace = "CryptoServices";
 package CryptoServices;
 
 message OpenMessage {
-  uint64 receiverId = 1;
-  bytes mes = 2;
-  optional CodingMode mode = 3;
+  User receiverId = 1;
+  User Owner = 2;
+  bytes mes = 3;
+  optional CodingMode mode = 4;
+}
+
+message OpenMessages {
+  repeated OpenMessage Messages = 1;
 }

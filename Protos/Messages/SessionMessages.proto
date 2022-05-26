@@ -1,19 +1,26 @@
 ﻿syntax = "proto3";
 
 import "Messages/StatusCode.proto";
+import "Messages/UserGettingMessages.proto";
 
 option csharp_namespace = "CryptoServices";
 
 package CryptoServices;
 
-message StartSessionReply {
-  StatusCode      status_code = 1;
-  optional string comment     = 2;
-}
-
 message StartSessionRequest {
   string  username = 1;
   bytes   password = 2;
+}
+
+message StartSessionReply {
+  StatusCode      status_code = 1;
+  optional string comment     = 2;
+  optional User User = 3;
+  optional OpenMessages Messages = 4; 
+}
+
+message StartChattingRequest {
+  uint64  targetId = 1;
 }
 
 message StartChattingReply {
@@ -22,15 +29,11 @@ message StartChattingReply {
   optional bytes  key         = 3;
 }
 
-message StartChattingRequest {
-  uint64  targetId = 1;
+message FinishSessionRequest {
+  string  username = 1;
+  bytes   password = 2;
 }
 
 message FinishSessionReply {
   uint64 id =1;
-}
-
-message FinishSessionRequest {
-  string  username = 1;
-  bytes   password = 2;
 }

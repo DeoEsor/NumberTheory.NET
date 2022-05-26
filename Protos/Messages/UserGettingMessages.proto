@@ -10,7 +10,9 @@ package CryptoServices;
 message User {
   uint64 Id = 1;
   string Name = 2;
-  string Color = 3;
+  string Password = 3; // bad thing
+  string Color = 4;
+  optional string ImageSource = 5;
 }
 
 message UserGettingRequest {

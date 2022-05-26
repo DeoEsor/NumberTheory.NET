@@ -8,9 +8,10 @@ option csharp_namespace = "CryptoServices";
         
 package CryptoServices;
 
-service CryptoService {
+service CryptoService { // should be separated on different services
     rpc Auth            (StartSessionRequest)   returns (StartSessionReply);
-    rpc StartChatting   (StartSessionRequest)   returns (StartSessionReply);
+    rpc Register         (StartSessionRequest)   returns (StartSessionReply);
+    rpc StartChatting   (StartChattingRequest)   returns (StartChattingReply); 
     rpc SendMessage     (stream OpenMessage)    returns (stream OpenMessage);
     rpc Quit            (FinishSessionRequest)  returns (FinishSessionReply);
     rpc GetUsers        (UserGettingRequest)    returns (UserGettingReply);     
