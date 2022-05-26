@@ -5,36 +5,29 @@ namespace CryptographyLib.CipherModes.Realization
 {
 	public class ECB : CipherModeBase
 	{
-		private int _blocksCount;
-		public ECB(IEncryptor encryptor, IDecryptor decryptor, int blocksCount) 
-			: base(encryptor, decryptor)
+		public ECB(ISymmetricEncryptor symmetricEncryptor, int BlockLength = 8)
+			: base(symmetricEncryptor, BlockLength)
 		{
-			_blocksCount = 0;
 		}
-		
-		public ECB(ISymmetricEncryptor symmetricEncryptor, int blocksCount) 
-			: base(symmetricEncryptor)
-		{
-			_blocksCount = 0;
-		}
+
 		public override byte[] Encrypt(byte[] value)
 		{
-			var expander = new SimpleExpander(value, _blocksCount).ToList();
+			var expander = new SimpleExpander(value, BlockLength).ToList();
 			var result = new List<byte[]>();
 			
-			Parallel.For(0,_blocksCount,
-				i => result[i] = _encryptor.Encrypt(expander[i]));
+			Parallel.For(0,BlockLength,
+				i => result[i] = Encryptor.Encrypt(expander[i]));
 			
 			return result.SelectMany(s => s).ToArray();
 		}
 		
 		public override byte[] Decrypt(byte[] value)
 		{
-			var expander = new SimpleExpander(value, _blocksCount).ToList();
+			var expander = new SimpleExpander(value, BlockLength).ToList();
 			var result = new List<byte[]>();
 			
-			Parallel.For(0,_blocksCount, 
-				i => result[i] = _decryptor.Decrypt(expander[i]) );
+			Parallel.For(0,BlockLength, 
+				i => result[i] = Decryptor.Decrypt(expander[i]) );
 			
 			return result.SelectMany(s => s).ToArray();
 		}

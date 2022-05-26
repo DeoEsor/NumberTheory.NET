@@ -3,19 +3,29 @@ namespace CryptographyLib.CipherModes
 {
 	public abstract class CipherModeBase : IEncryptor, IDecryptor
 	{
-		protected IEncryptor _encryptor;
-		protected IDecryptor _decryptor;
+		private IEncryptor _encryptor = null!;
+		private IDecryptor _decryptor = null!;
+		protected readonly ISymmetricEncryptor SymmetricEncryptor;
 		
-		protected CipherModeBase(IEncryptor encryptor, IDecryptor decryptor)
+		public int BlockLength { get; set; }
+		public long IV { get; set; }
+
+		protected IEncryptor Encryptor
 		{
-			_encryptor = encryptor;
-			_decryptor = decryptor;
+			get => _encryptor ?? SymmetricEncryptor;
+			set => _encryptor = value;
 		}
-		
-		protected CipherModeBase(ISymmetricEncryptor symmetricEncryptor)
+
+		protected IDecryptor Decryptor
 		{
-			_encryptor = symmetricEncryptor;
-			_decryptor = symmetricEncryptor;
+			get => _decryptor ?? SymmetricEncryptor;
+			set => _decryptor = value;
+		}
+
+		protected CipherModeBase(ISymmetricEncryptor symmetricEncryptor, int blockLength = 8)
+		{
+			SymmetricEncryptor = symmetricEncryptor;
+			BlockLength = blockLength;
 		}
 		
 		public abstract byte[] Encrypt(byte[] value);

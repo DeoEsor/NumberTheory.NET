@@ -1,24 +1,17 @@
-﻿using CryptographyLib.Extensions;
+﻿using System.Collections;
+using CryptographyLib.Extensions;
 using CryptographyLib.Interfaces;
 using CryptographyLib.KeyExpanders;
 namespace CryptographyLib.CipherModes.Realization
 {
 	public class CBC : CipherModeBase
 	{
-		private int _iv;
-		private int _blocksCount;
+		private ulong _iv;
 
-		public CBC(IEncryptor encryptor, IDecryptor decryptor, int iv, int blocksCount) 
-			: base(encryptor, decryptor)
+		public CBC(ISymmetricEncryptor encryptor, ulong iv, int blocksCount) 
+			: base(encryptor, blocksCount)
 		{
 			_iv = iv;
-			_blocksCount = blocksCount;
-		}
-		public CBC(ISymmetricEncryptor symmetricEncryptor, int iv, int blocksCount) 
-			: base(symmetricEncryptor, symmetricEncryptor)
-		{
-			_iv = iv;
-			_blocksCount = blocksCount;
 		}
 		
 		public override byte[] Encrypt(byte[] value)
@@ -28,13 +21,17 @@ namespace CryptographyLib.CipherModes.Realization
 				.ToList();
 			
 			var result = new List<byte[]>();
+			var ivVector = new BitArray(BitConverter.GetBytes(_iv));
+			BitArray resultBlock = null!;
 
 			foreach (var block in expander)
 			{
-				byte[] resultBlock = null!;
-				var xor = resultBlock == null ? _iv.XorBytes(block) : resultBlock.XorBytes(block);
-				resultBlock = _encryptor.Encrypt(xor);
-				result.Add(resultBlock);
+				var temp = new BitArray(block);
+				var xor = resultBlock == null ? ivVector.Xor(temp) : resultBlock.Xor(temp);
+				resultBlock = Encryptor
+					.Encrypt(xor.ToBytes())
+					.ToBitArray();
+				result.Add(resultBlock.ToBytes());
 			}
 
 			return result.SelectMany(s => s).ToArray();
@@ -47,13 +44,17 @@ namespace CryptographyLib.CipherModes.Realization
 					.ToList();
 			
 			var result = new List<byte[]>();
+			var ivVector = new BitArray(BitConverter.GetBytes(_iv));
+			BitArray resultBlock = null!;
 
 			foreach (var block in expander)
 			{
-				byte[]? resultBlock = null;
-				var xor = resultBlock == null ? _iv.XorBytes(block) : resultBlock.XorBytes(block);
-				resultBlock = _decryptor.Decrypt(xor);
-				result.Add(resultBlock);
+				var temp = new BitArray(block);
+				var xor = resultBlock == null ? ivVector.Xor(temp) : resultBlock.Xor(temp);
+				resultBlock = Decryptor
+					.Decrypt(xor.ToBytes())
+					.ToBitArray();
+				result.Add(resultBlock.ToBytes());
 			}
 
 			return result.SelectMany(s => s).ToArray();
