@@ -2,11 +2,11 @@
 namespace NumberTheory
 {
     /// <summary>
-    ///     GF ( 2^8 ), where 2 - field characteristics, 8 - field order
+    ///     GF ( 2^8 ), where 2 - field characteristics, 8 - field Module
     /// </summary>
 	public sealed class GaloisField
     {
-        private const int Order = 256;
+        public  int Module { get; set; } = 256;
         
         //irreducible polynomial used : x^8 + x^4 + x^3 + x^2 + 1 (0x11D)
         private const int Polynomial = 0x11D;
@@ -27,19 +27,21 @@ namespace NumberTheory
         //generates Exp & Log table for ast multiplication operator
         static GaloisField()
         {
-            Exp = new byte[Order];
-            Log = new byte[Order];
+           /*
+            *  Exp = new byte[Module];
+            Log = new byte[Module];
 
             byte val = 0x01;
             
-            for(var i=0; i<Order; i++)
+            for(var i=0; i<Module; i++)
             {
                 Exp[i] = val;
-                if (i < Order - 1)
+                if (i < Module - 1)
                     Log[val] = (byte)i;
                 
                 val = Multiply(Generator,val);
             }
+            */
         }
 
         //operators
@@ -61,7 +63,7 @@ namespace NumberTheory
 
             if (a.Value == 0 || b.Value == 0) return result;
             
-            var bres = (byte)((Log[a.Value] + Log[b.Value]) % (Order-1));
+            var bres = (byte)((Log[a.Value] + Log[b.Value]) % (a.Module-1));
             bres = Exp[bres];
             result.Value = bres;
             return result;
@@ -76,7 +78,7 @@ namespace NumberTheory
 
             if (a.Value == 0) return result;
             
-            var bres = (byte)((Order - 1 + Log[a.Value] - Log[b.Value]) % (Order-1));
+            var bres = (byte)((a.Module - 1 + Log[a.Value] - Log[b.Value]) % (a.Module-1));
             bres = Exp[bres];
             result.Value = bres;
             
@@ -102,6 +104,44 @@ namespace NumberTheory
                 return false;
             
             return Value == field.Value;
+        }
+
+        public IEnumerable<byte> IrredPolynomes()
+        {
+            var i = 0;
+            for (ushort number = 0b100000000; number <= 0b111111111; number +=2) 
+            {
+                if (i == 30) yield break;
+                var remnants_count = 0;
+
+                for (byte j = 0b10; j < 0b100000; j++)
+                    if (Remnant(number, j) == 0)
+                        break;
+                    else remnants_count++;
+
+                if (remnants_count != 0) continue;
+                
+                yield return (byte)number;
+                i++;
+            }
+        }
+        
+        public byte Remnant(ushort poly, ushort module) {
+            var module_count = Degree(module);
+            var dif = 0;
+
+            while ((dif = Degree(poly)) - module_count >= 0)
+                poly = (ushort)(poly ^ module << dif);
+        
+            return (byte)poly;
+        }
+        
+        private int Degree(ushort poly){
+            var res=0;
+
+            for (; poly > 0; poly >>= 0b1)  
+                if ((poly & 0b1) == 0b1) res++;
+            return res;
         }
 
         public override int GetHashCode() => Value;
