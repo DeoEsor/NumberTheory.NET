@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace CryptographyLib.Extensions
 {
 	public static class ByteExtensions
 	{
+		public static BitArray ToBitArray(this byte[] value) => new BitArray(value);
 		/// <summary>
 		/// Get k's bit from <paramref name="value"/>
 		/// </summary>

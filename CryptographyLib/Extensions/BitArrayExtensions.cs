@@ -12,4 +12,15 @@ public static class BitArrayExtensions
 
         return res;
     }
+
+    public static BitArray Concat(this BitArray bitArray, BitArray other)
+    {
+        var result = new BitArray(bitArray.Count + other.Count);
+
+        var i = 0;
+        foreach (var value in bitArray.Cast<bool>().Concat(other.Cast<bool>()))
+            result[i++] = value;
+
+        return result;
+    }
 }
