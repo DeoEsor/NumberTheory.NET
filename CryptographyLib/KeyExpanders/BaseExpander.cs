@@ -19,6 +19,8 @@ namespace CryptographyLib.KeyExpanders
 			get;
 			protected set;
 		}
+		
+		public int BlockLength { get; protected init; }
 
 		protected BaseExpander(byte[] originalKey, IPadding padding = null!)
 		{

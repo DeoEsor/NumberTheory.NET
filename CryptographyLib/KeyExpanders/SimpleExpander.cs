@@ -5,8 +5,6 @@ namespace CryptographyLib.KeyExpanders
 {
 	public class SimpleExpander : BaseExpander
 	{
-		public readonly int BlockLength;
-
 		public override int RoundsCount
 		{
 			get => OriginalKey.Length / BlockLength;
