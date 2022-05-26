@@ -14,12 +14,7 @@
         <Private>true</Private>
         <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
       </ProjectReference>
-      <ProjectReference Include="..\CryptoVisualization\CryptoVisualization.csproj" />
       <ProjectReference Include="..\СryptoClient\СryptoClient.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="MVVM\View" />
     </ItemGroup>
 
     <ItemGroup>
@@ -58,6 +53,14 @@
       <Content Include="Resources\Icons\default_logo.ico">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="DryIoc" Version="5.1.0" />
+      <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
+      <PackageReference Include="MaterialDesignColors" Version="2.0.6" />
+      <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     </ItemGroup>
 
 </Project>

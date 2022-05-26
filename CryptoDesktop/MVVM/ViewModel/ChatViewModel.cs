@@ -9,7 +9,9 @@ using System.Windows.Input;
 using CryptoDesktop.Annotations;
 using CryptoDesktop.MVVM.Commands;
 using CryptoDesktop.MVVM.Model;
+using DryIoc;
 using Microsoft.Win32;
+using СryptoClient;
 
 namespace CryptoDesktop.MVVM.ViewModel;
 
@@ -23,7 +25,7 @@ public class ChatViewModel : INotifyPropertyChanged
     public RelayCommand SendCommand { get; set; }
     public RelayCommand OpenFileCommand { get; set; }
     public RelayCommand ChoiceParamsCommand { get; set; }
-    
+    public CryptoClient CryptoClient { get; set; }
 
     public ContactModel SelectedContact
     {
@@ -57,46 +59,12 @@ public class ChatViewModel : INotifyPropertyChanged
 
     public ChatViewModel()
     {
-        User = new ContactModel
-        {
-            Username = "User",
-            Status = "Status",
-            ImageSource = null!,
-             
-        };
-        
+        CryptoClient = App.Container.Resolve<CryptoClient>();
+
         Contacts.Add(new ContactModel
         {
-            Username = "Cat",
-            Messages = 
-                new ObservableCollection<MessageModel>
-                {
-                    new MessageModel
-                    {
-                        Username = "Cat",
-                        UsernameColor = "White",
-                        Message = new Message
-                        {
-                            MessageData = Encoding.UTF8.GetBytes("Мяу"),
-                            Type = Model.Message.MessageType.String
-                        },
-                        Time = DateTime.Now,
-                        IsNativeOrigin = true
-                    },
-                    new MessageModel
-                    {
-                        Username = "Cat",
-                        UsernameColor = "White",
-                        Message = new Message
-                        {
-                            MessageData = Encoding.UTF8.GetBytes("Мяу"), 
-                            Type = Model.Message.MessageType.File,
-                            FileName = "SecretMessage.txt"
-                        },
-                        Time = DateTime.Now,
-                        IsNativeOrigin = true
-                    }         
-                }
+            Username = "Yourseld",
+            Messages = new ObservableCollection<MessageModel>()
         });
         SelectedContact = Contacts.First();
         SendCommand = new RelayCommand(o =>
@@ -104,14 +72,12 @@ public class ChatViewModel : INotifyPropertyChanged
             if (Message == string.Empty) return;
             SelectedContact.Messages.Add( new MessageModel
             {
-                Username = User.Username,
-                ImageSource = User.ImageSource,
+                Owner = User,
                 Message = new Message
                 {
                     MessageData = Encoding.UTF8.GetBytes(Message),
                     Type = Model.Message.MessageType.String
                 },
-                UsernameColor = "Red"
             });
             Message = string.Empty;
         });
@@ -133,9 +99,8 @@ public class ChatViewModel : INotifyPropertyChanged
             SelectedContact.Messages.Add(
                 new MessageModel
                 {
-                    Username = User.Username,
+                    Owner = User,
                     Message = msg,
-                    UsernameColor = "Red"
                 }
                 );
         });

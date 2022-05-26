@@ -1,12 +1,14 @@
 ﻿using System;
+using CryptoServices;
 
 namespace CryptoDesktop.MVVM.Model;
 
 public class MessageModel
 {
-    public string Username { get; set; }
-    public string UsernameColor { get; set; }
-    public string ImageSource { get; set; }
+    public CryptoDesktop.MVVM.Model.ContactModel Owner { get; set; }
+    public string Username => Owner.Username;
+    public string UsernameColor => Owner.Color; 
+    public string ImageSource => Owner.ImageSource;
     public Message Message { get; set; }
     
     

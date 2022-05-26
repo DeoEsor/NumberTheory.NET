@@ -1,13 +1,29 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=F3F9DC33_002D939F_002D4D08_002D98A6_002DE9C0270C2332_002Fd_003ASymmetricEncryptor_002Ff_003AFieldGalua_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/Environment/ContinuousTesting/BuildMode/@EntryValue">TestProjectsAndProjectsWithCoverage</s:String>
+	<s:Boolean x:Key="/Default/Environment/ContinuousTesting/ShadowCopyAllFiles/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\Rulia\AppData\Local\JetBrains\Rider2021.3\resharper-host\temp\Rider\vAny\CoverageData\_Cryptography.1580605542\Snapshot\snapshot.utdcvr</s:String>
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a2ead1be_002D3928_002D4665_002D9ab0_002Dd870e10b40fe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetDegree" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FB65CCB4-2755-4F28-8EF3-6FBBB6A699D8::net6.0::CryptoTest.NumberTheory.NumberTheory.GetDegree&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FB65CCB4-2755-4F28-8EF3-6FBBB6A699D8::net6.0::CryptoTest.NumberTheory.NumberTheory.FermatTest&lt;/TestId&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FB65CCB4-2755-4F28-8EF3-6FBBB6A699D8::net6.0::CryptoTest.NumberTheory.NumberTheory.Solovay_StrassenTest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ae706308_002De160_002D488b_002Db41b_002Da10d87258b53/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;And&gt;&#xD;
+    &lt;Project Location="C:\Users\Rulia\Documents\Projects\Cryptography\CryptoTest" Presentation="&amp;lt;Domain&amp;gt;\&amp;lt;CryptoTest&amp;gt;" /&gt;&#xD;
+    &lt;Namespace&gt;CryptoTest&lt;/Namespace&gt;&#xD;
+  &lt;/And&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=decryptor/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Feistel/@EntryIndexedValue">True</s:Boolean>
 	

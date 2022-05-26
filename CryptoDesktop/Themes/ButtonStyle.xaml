@@ -63,4 +63,26 @@
         </Style.Triggers> 
         -->
     </Style>
+    <Style TargetType="Button" x:Key="RoundButtonLogin" BasedOn="{StaticResource RoundCorner}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid x:Name="grid">
+                        <Border
+                            Background="#1261d1"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            x:Name="border">
+                            
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                TextElement.FontWeight="Bold"
+                                VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

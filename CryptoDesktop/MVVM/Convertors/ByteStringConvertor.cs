@@ -5,9 +5,9 @@ using System.Windows.Data;
 
 namespace CryptoDesktop.MVVM.Convertors;
 
-public class ByteStringConvertor : IValueConverter
+public class ByteStringConvertor : BaseValueConverter<ByteStringConvertor>
 {
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (!(value is byte[] message))
             throw new ArgumentException("Parameter incorrect", nameof(parameter));
@@ -15,7 +15,7 @@ public class ByteStringConvertor : IValueConverter
         return Encoding.UTF8.GetString(message);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public override object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (!(value is string message))
             throw new ArgumentException("Parameter incorrect", nameof(parameter));

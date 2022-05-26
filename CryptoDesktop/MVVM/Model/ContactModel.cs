@@ -12,7 +12,9 @@ public sealed class ContactModel : INotifyPropertyChanged
     private string _username;
     private string _status;
     private string _imageSource;
-    
+    public string Password { get; set; }
+    public string Color { get; set; }
+    public int Id { get; set; }
     
     public ObservableCollection<MessageModel> Messages { get; set; }
     

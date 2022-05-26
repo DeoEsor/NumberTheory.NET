@@ -19,11 +19,11 @@
     </Window.DataContext>
     <Window.Resources>
         <BitmapImage x:Key="DefaultImage" UriSource="/resources/Icons/default_logo.png" />
-        <Image x:Key="SendButtonImage" Source="Resources/Icons/send.png"  Width="20" Height="20"
+        <Image x:Key="SendButtonImage" Source="../../Resources/Icons/send.png"  Width="20" Height="20"
                RenderOptions.BitmapScalingMode="Fant"/>
-        <Image x:Key="SendFileButtonImage" Source="Resources/Icons/plus.png" Width="20" Height="20"
+        <Image x:Key="SendFileButtonImage" Source="../../Resources/Icons/plus.png" Width="20" Height="20"
                RenderOptions.BitmapScalingMode="Fant"/>
-        <Image x:Key="AddUserImage" Source="Resources/Icons/user_add.png" Width="20" Height="20"
+        <Image x:Key="AddUserImage" Source="../../Resources/Icons/user_add.png" Width="20" Height="20"
                RenderOptions.BitmapScalingMode="Fant"/>
     </Window.Resources>
     <Grid>
