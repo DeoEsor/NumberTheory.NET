@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -7,7 +6,7 @@
         <DocumentationMarkdown>$(MSBuildProjectDirectory)\API.md</DocumentationMarkdown>
         <LangVersion>preview</LangVersion>
     </PropertyGroup>
-
+    
     <!--
     <ItemGroup>
       <PackageReference Include="Vsxmd" Version="1.4.5">
@@ -22,7 +21,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Symmetric" />
+      <PackageReference Include="NUnit" Version="3.13.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Asymmetric" />
     </ItemGroup>
 
 </Project>
