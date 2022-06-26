@@ -9,3 +9,6 @@ Server : ASP.Net core + gRPC Server
 Client : WPF + gRPC Client
 
 Lib : .Net core 6
+
+## Preview
+![](preview.jpg)
