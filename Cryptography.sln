@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoServer", "CryptoServe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoDesktop", "CryptoDesktop\CryptoDesktop.csproj", "{21F71C90-8B65-4DDB-A5E5-8371C06F1DB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "СryptoClient", "СryptoClient\СryptoClient.csproj", "{1D249F91-EC90-47E4-9F86-A9BF165192BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoDesktop.gRPC", "CryptoDesktop.gRPC\CryptoDesktop.gRPC.csproj", "{1D249F91-EC90-47E4-9F86-A9BF165192BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberTheory", "NumberTheory\NumberTheory.csproj", "{567867B5-9296-4D08-82B9-4198D865967E}"
 EndProject
