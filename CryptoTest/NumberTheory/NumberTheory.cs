@@ -46,7 +46,7 @@ public partial class NumberTheory
     [Test]
     public void Solovay_StrassenTest()
     {
-        var solovay = new Solovay_StrassenTest();
+        var solovay = new SolovayStrassenTest();
 
         Assert.AreEqual(true, solovay.Check(1000003,0.87f));
     }
