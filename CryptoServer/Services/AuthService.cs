@@ -71,7 +71,7 @@ public sealed class AuthService : CryptoServices.AuthService.AuthServiceBase
         {
             StatusCode = (int)StatusCode.OK
         };
-        var user = _db.ChangeStatus(request.Username, request.Password.ToStringUtf8(), true);
+        var user = _db.ChangeStatus(request.Username, request.Password.ToByteArray(), true);
         if (user == null)
         {
             reply.StatusCode = (int)StatusCode.NotFound;
@@ -91,7 +91,7 @@ public sealed class AuthService : CryptoServices.AuthService.AuthServiceBase
 
     public override async Task<FinishSessionReply> Quit(FinishSessionRequest request, ServerCallContext context)
     {
-        var user = _db.ChangeStatus(request.Username,request.Password.ToStringUtf8(), false);
+        var user = _db.ChangeStatus(request.Username,request.Password.ToByteArray(), false);
         return new FinishSessionReply
         {
             Id = (ulong)user.Id

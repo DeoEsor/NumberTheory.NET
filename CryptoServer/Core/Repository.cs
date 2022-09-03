@@ -6,7 +6,7 @@ namespace CryptoServer.Interfaces;
 public class Repository : IRepository<User>, IRepository<Chat>, IRepository<Message>
 {
 
-    public User ChangeStatus(string Username,string Password, bool IsOnlineNow)
+    public User ChangeStatus(string Username,byte[] Password, bool IsOnlineNow)
     {
         using var a = new UsersDb();
 
