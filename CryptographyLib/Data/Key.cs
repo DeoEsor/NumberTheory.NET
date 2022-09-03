@@ -27,8 +27,10 @@ public sealed class Key
 	/// <returns></returns>
 	public static Key CreateAsymmetricKey(BigInteger[] publicKey, BigInteger[] privateKey)
 	{
-		var publicBytes = new List<byte>(BitConverter.GetBytes(publicKey.Length)); 
+		var publicBytes = new List<byte>(); 
 		var privateBytes = new List<byte>(BitConverter.GetBytes(privateKey.Length));
+		publicBytes.AddRange(BitConverter.GetBytes(publicKey.Length));
+		privateBytes.AddRange(BitConverter.GetBytes(privateKey.Length));
 
 		foreach (var value in publicKey)
 		{
@@ -84,4 +86,20 @@ public sealed class Key
 		
 		return res;
 	}
+
+	public static byte[] SerializeBigInts(BigInteger[] array)
+	{
+		var res = new List<byte>(); 
+		res.AddRange(BitConverter.GetBytes(array.Length));
+
+		foreach (var value in array)
+		{
+			var bytes = value.ToByteArray();
+			res.AddRange(BitConverter.GetBytes(bytes.Length));
+			res.AddRange(bytes);
+		}
+
+		return res.ToArray();
+	}
+	
 }
