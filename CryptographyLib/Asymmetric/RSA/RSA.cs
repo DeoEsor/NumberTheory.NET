@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
-using CryptographyLib.Data;
 using CryptographyLib.Interfaces;
 using CryptographyLib.KeyExpanders;
 using CryptographyLib.KeyGenerators;
+using NumberTheory.Extensions;
 
 namespace CryptographyLib.Asymmetric.RSA;
 
@@ -11,7 +11,7 @@ public class RSA : IAsymmetricEncryptor
     public AsymmetricKeyGenerator Generator { get; set; }
     public IExpandKey ExpandKey { get; set; }
 
-    public RSA(IExpandKey expandKey, RSAKeyGenerator generator = null!)
+    public RSA(IExpandKey expandKey, RSAKeyGenerator? generator = null!)
     {
         ExpandKey = expandKey;
         
@@ -23,7 +23,8 @@ public class RSA : IAsymmetricEncryptor
     {
         var text = new BigInteger(value);
         var key = Generator.GenerateKeys();
-        var nums = Key.GetBigInts(key.PublicKey);
+        var nums = key.PublicKey
+            .DeserializeBigInts();
 
         var e = nums[0];
         
@@ -38,7 +39,8 @@ public class RSA : IAsymmetricEncryptor
     {
         var text = new BigInteger(value);
         var key = Generator.GenerateKeys();
-        var nums = Key.GetBigInts(key.PrivateKey);
+        var nums = key.PrivateKey
+            .DeserializeBigInts();
 
         var d = nums[0];
         

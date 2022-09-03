@@ -22,9 +22,12 @@ public class ElGamal : IAsymmetricEncryptor
 	
 	public byte[] Encrypt(byte[] value)
 	{
-		var nums = Key.GetBigInts(Key.PublicKey);
+		var nums = Key
+			.PublicKey
+			.DeserializeBigInts();
+		
 		BigInteger y = nums[0], g = nums[1], p = nums[2]; 
-		var M = new BigInteger(value);
+		var m = new BigInteger(value);
 
 		var k = Random.Generate(1, p - 1);
 
@@ -32,21 +35,28 @@ public class ElGamal : IAsymmetricEncryptor
 			k = Random.Generate(1, p - 1);
 
 		var a = BigInteger.ModPow(g , k , p);
-		var b = (BigIntegerExtensions.Pow(y, k ) * M) % p ;
+		var b = y.Pow(k) * m % p;
 
-		return Key.SerializeBigInts(new[] { a, b });
+		return new[] { a, b }
+			.SerializeBigInts();
 	}
 
 	public byte[] Decrypt(byte[] value)
 	{
-		var nums = Key.GetBigInts(value);
-		var p = Key.GetBigInts(Key.PublicKey)[2];
-		var x = Key.GetBigInts(Key.PrivateKey)[0];
+		var nums = value
+			.DeserializeBigInts();
+		
+		var p = Key.PublicKey
+			.DeserializeBigInts()
+			[2];
+		var x = Key.PrivateKey
+			.DeserializeBigInts()
+			[0];
+		
 		BigInteger a = nums[0], b = nums[1];
 
 		var m = BigInteger
-			        .Multiply(a, BigIntegerExtensions.Pow(a, p - 1 - x)) 
-		        % p;
+			        .Multiply(b, a.Pow(p - 1 - x)) % p;
 
 		return m
 			.ToByteArray();
