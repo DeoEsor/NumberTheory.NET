@@ -126,7 +126,8 @@ public sealed class GaloisField
         }
     }
         
-    public byte Remnant(ushort poly, ushort module) {
+    public byte Remnant(ushort poly, ushort module)
+    {
         var module_count = Degree(module);
         var dif = 0;
 
@@ -136,7 +137,8 @@ public sealed class GaloisField
         return (byte)poly;
     }
         
-    private int Degree(ushort poly){
+    private int Degree(ushort poly)
+    {
         var res=0;
 
         for (; poly > 0; poly >>= 0b1)  
@@ -175,5 +177,36 @@ public sealed class GaloisField
             bb >>= 1;
         }
         return result;
+    }
+    
+    public static byte MultGf256(byte a, byte b,byte f)
+    {
+        byte t = 0, mask = 1;
+
+        for (var i = 0; i < 8; i++)
+        {
+            if ((b & mask) != 0)
+                t = (byte)(t ^ a);
+            if ((a & 128) == 128)
+                a = (byte)(a << 1);
+            else
+                a = (byte)((a << 1) ^ f);
+            mask = (byte)(mask << 1);
+        }
+        return t;
+    }
+
+    public static byte PowerGf256(byte a, byte b,byte f)
+    {
+        byte t = 1;
+
+        while (b > 0)
+        {
+            if (b % 2 == 1)
+                t = MultGf256(a, b,f);
+            a = MultGf256(a, a,f);
+            b = (byte)(b >> 1);
+        }
+        return t;
     }
 }
