@@ -4,6 +4,37 @@ namespace NumberTheory.Extensions;
 
 public static class BigIntegerExtensions
 {
+    public static BigInteger[] DeserializeBigInts(this byte[] bytes)
+    {
+        var res = new BigInteger[BitConverter.ToInt32(bytes.AsSpan(0, 4))];
+        var startIndex = 4;
+
+        for (var i = 0; i < res.Length; i++)
+        {
+            var length = BitConverter.ToInt32(bytes.AsSpan(startIndex, 4));
+            var value = new BigInteger(bytes.AsSpan(startIndex + 4, length));
+            startIndex += 4 + length;
+            res[i] = value;
+        }
+		
+        return res;
+    }
+
+    public static byte[] SerializeBigInts(this BigInteger[] array)
+    {
+        var res = new List<byte>(); 
+        res.AddRange(BitConverter.GetBytes(array.Length));
+
+        foreach (var value in array)
+        {
+            var bytes = value.ToByteArray();
+            res.AddRange(BitConverter.GetBytes(bytes.Length));
+            res.AddRange(bytes);
+        }
+
+        return res.ToArray();
+    }
+    
     public static BigInteger Sqrt(this BigInteger n)
     {
         if (n == 0) return 0;
