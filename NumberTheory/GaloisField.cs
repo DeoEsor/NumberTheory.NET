@@ -1,4 +1,4 @@
-﻿// ReSharper disable NonReadonlyMemberInGetHashCode
+// ReSharper disable NonReadonlyMemberInGetHashCode
 namespace NumberTheory;
 
 /// <summary>
@@ -14,35 +14,15 @@ public sealed class GaloisField
     //generator to be used in Exp & Log table generation
     private const byte Generator = 0x2;
 
-    private static readonly byte[] Exp;
+    private static readonly byte[]? Exp;
 
-    private static readonly byte[] Log;
+    private static readonly byte[]? Log;
 
     private byte Value { get; set; }
 
     public GaloisField() => Value = 0;
 
     public GaloisField(byte value) => Value = value;
-
-    //generates Exp & Log table for ast multiplication operator
-    static GaloisField()
-    {
-        /*
-         *  Exp = new byte[Module];
-         Log = new byte[Module];
-
-         byte val = 0x01;
-         
-         for(var i=0; i<Module; i++)
-         {
-             Exp[i] = val;
-             if (i < Module - 1)
-                 Log[val] = (byte)i;
-             
-             val = Multiply(Generator,val);
-         }
-         */
-    }
 
     //operators
     public static explicit operator GaloisField(byte b)
@@ -63,8 +43,9 @@ public sealed class GaloisField
 
         if (a.Value == 0 || b.Value == 0) return result;
             
-        var bres = (byte)((Log[a.Value] + Log[b.Value]) % (a.Module-1));
-        bres = Exp[bres];
+
+        var bres = (byte)((Log?[a.Value] + Log?[b.Value]) % (a.Module-1))!;
+        bres = (byte)Exp?[bres]!;
         result.Value = bres;
         return result;
     }
@@ -179,7 +160,7 @@ public sealed class GaloisField
         return result;
     }
     
-    public static byte MultGf256(byte a, byte b,byte f)
+    public static byte MultGf256(byte a, byte b, byte f)
     {
         byte t = 0, mask = 1;
 
@@ -196,7 +177,7 @@ public sealed class GaloisField
         return t;
     }
 
-    public static byte PowerGf256(byte a, byte b,byte f)
+    public static byte PowerGf256(byte a, byte b, byte f)
     {
         byte t = 1;
 
