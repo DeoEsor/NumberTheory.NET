@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-using System.Numerics;
-using System.Xml.Schema;
+﻿using System.Numerics;
 using CryptographyLib.Data;
 using NumberTheory.Extensions;
 using NumberTheory.PrimalCheckers;

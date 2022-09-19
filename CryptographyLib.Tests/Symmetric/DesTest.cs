@@ -7,17 +7,18 @@ using CryptographyLib.Symmetric;
 using NUnit.Framework;
 using CipherMode = CryptographyLib.CipherModes.CipherMode;
 
-namespace CryptoTest.SymmetricAlgos;
+namespace CryptographyLib.Tests.Symmetric;
 
 [TestFixture]
 public class DesTest
 {
     [Test]
-    public void Test()
+    public async Task Test()
     {
-        Random random = new Random();
-        //var generator = new FuncKeyGenerator<BigInteger>(new Func<BigInteger, byte[]>(s => s.ToByteArray()));
+        var random = new Random();
+
         var key = new byte[7];
+        
         TestContext.CurrentContext.Random.NextBytes(key);
         var expander = new DesExpander(key, Padding.CreateInstance(Padding.PaddingMode.PKCS7));
         var context = new SymmetricEncryptorContext(CipherMode.Mode.ECB,
@@ -26,7 +27,7 @@ public class DesTest
             16);
         Debug.Write(Encoding.UTF8.GetString(key));
 
-        context.AsyncEncryptFile("Test.txt", "Encoded.txt");
-        context.AsyncDecryptFile("Encoded.txt", "Decoded.txt");
+        await context.AsyncEncryptFile("Test.txt", "Encoded.txt");
+        await context.AsyncDecryptFile("Encoded.txt", "Decoded.txt");
     }
 }

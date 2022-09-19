@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Numerics;
+﻿using System.Numerics;
 using CryptographyLib.Data;
-using CryptographyLib.Extensions;
 using CryptographyLib.Interfaces;
 using NumberTheory.Euclid;
 using NumberTheory.PrimalCheckers;
