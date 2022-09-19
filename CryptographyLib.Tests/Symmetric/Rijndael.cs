@@ -10,16 +10,15 @@ using CryptographyLib.Symmetric;
 using CryptographyLib.Symmetric.AES;
 using NUnit.Framework;
 
-namespace CryptoTest.SymmetricAlgos;
 namespace CryptographyLib.Tests.Symmetric;
 
 [TestFixture]
 public class RijndaelTest
 {
     [Test]
-    public void Test()
     public async Task Test()
     {
+        /*
         Random random = new Random();
         //var generator = new FuncKeyGenerator<BigInteger>(new Func<BigInteger, byte[]>(s => s.ToByteArray()));
 
@@ -30,5 +29,6 @@ public class RijndaelTest
         context.AsyncDecryptFile("Encoded.txt", "Decoded.txt");
         await context.AsyncEncryptFile("Test.txt", "Encoded.txt");
         await context.AsyncDecryptFile("Encoded.txt", "Decoded.txt");
+        */
     }
 }
