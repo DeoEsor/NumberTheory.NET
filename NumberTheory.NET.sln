@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberTheory", "NumberTheory\NumberTheory.csproj", "{B84ABCC3-9C33-4B4A-A755-A89A304B5E39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberTheory.Tests", "NumberTheory.Tests\NumberTheory.Tests.csproj", "{F13B21F8-24DE-462A-B35F-3F9EC63531A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B84ABCC3-9C33-4B4A-A755-A89A304B5E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B84ABCC3-9C33-4B4A-A755-A89A304B5E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B84ABCC3-9C33-4B4A-A755-A89A304B5E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B84ABCC3-9C33-4B4A-A755-A89A304B5E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F13B21F8-24DE-462A-B35F-3F9EC63531A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F13B21F8-24DE-462A-B35F-3F9EC63531A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F13B21F8-24DE-462A-B35F-3F9EC63531A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F13B21F8-24DE-462A-B35F-3F9EC63531A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
